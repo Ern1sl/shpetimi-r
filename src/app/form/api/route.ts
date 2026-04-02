@@ -23,8 +23,8 @@ export async function POST(req: Request) {
     }
 
     const { error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: "ernisloshaj52@gmail.com",
+      from: process.env.CONTACT_SENDER_EMAIL || "onboarding@resend.dev",
+      to: process.env.CONTACT_RECEIVER_EMAIL || "ernisloshaj52@gmail.com",
       subject: `[Portfolio] ${messageType}`,
       text: `Name: ${fullName}\nEmail: ${email}\nCompany: ${company}\nMessage: ${message}`,
       html: `
