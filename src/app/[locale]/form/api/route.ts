@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, context: any) {
 
     const { fullName, phone, email, message } = body;
 
-    if (!process.env.RESEND_API_KEY) {
+    if (!process.env.RESEND_API_KEY || !process.env.CONTACT_RECEIVER_EMAIL) {
       return NextResponse.redirect(`${proto}://${host}/form?error=config`, {
         status: 303,
       });
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, context: any) {
 
     const { error } = await resend.emails.send({
       from: process.env.CONTACT_SENDER_EMAIL || "onboarding@resend.dev",
-      to: process.env.CONTACT_RECEIVER_EMAIL || "ernisloshaj52@gmail.com",
+      to: process.env.CONTACT_RECEIVER_EMAIL,
       subject: `[Portfolio] Inquiry from ${fullName || "Unknown"}`,
       text: `Name: ${fullName}\nEmail: ${email || "Not Provided"}\nPhone: ${phone}\nMessage: ${message}`,
       html: `

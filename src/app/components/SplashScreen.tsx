@@ -5,24 +5,36 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { font2 } from "../[locale]/fonts";
 
-export default function SplashScreen() {
-  const [isVisible, setIsVisible] = useState(true);
+// Persistence variable outside the component to survive soft navigations
+let lastShownLocale: string | null = null;
+
+// Persistence variable outside the component to survive soft navigations
+let hasShown = false;
+
+export default function SplashScreen({ locale }: { locale?: string }) {
   const t = useTranslations("Home");
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Lock scroll while splashing
-    document.body.style.overflow = "hidden";
+    // Only show if it hasn't been shown in this specific JS session (resets on refresh)
+    if (!hasShown) {
+      setIsVisible(true);
+      hasShown = true;
+      document.body.style.overflow = "hidden";
 
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-      // Unlock scroll after splash
-      document.body.style.overflow = "auto";
-    }, 2800); // Slightly longer for the curtain lift feel
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        document.body.style.overflow = "auto";
+      }, 2800);
 
-    return () => {
-      clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = "auto";
+      };
+    } else {
+      // Ensure body is unlocked if we skip the splash
       document.body.style.overflow = "auto";
-    };
+    }
   }, []);
 
   return (

@@ -74,7 +74,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
-          <SplashScreen />
+          <SplashScreen locale={locale} />
           <Navbar />
           {children}
         </NextIntlClientProvider>
