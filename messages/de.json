@@ -1,0 +1,79 @@
+{
+  "Home": {
+    "title": "EXZELLENZ BAUEN",
+    "seoTitle": "Bauunternehmen in Kosovo | Bauen mit Exzellenz",
+    "subtitle": "STEIN FÜR STEIN",
+    "description": "SHPETIMI-R ist ein vertrauenswürdiges Bauunternehmen im Kosovo, das sich der Bereitstellung erstklassiger Baudienstleistungen für Wohn-, Gewerbe- und Industrieprojekte widmet.",
+    "cta": "KONTAKTIEREN",
+    "office": "HAUPTSITZ"
+  },
+  "Navbar": {
+    "home": "STARTSEITE",
+    "about": "ÜBER UNS",
+    "projects": "PROJEKTE",
+    "contact": "KONTAKT",
+    "office": "HAUPTSITZ"
+  },
+  "Success": {
+    "title": "Anfrage Gesendet",
+    "message": "Vielen Dank für Ihre Kontaktaufnahme. Wir haben Ihre Termindetails erhalten und werden uns innerhalb eines Werktages bei Ihnen melden.",
+    "button": "Zurück zur Startseite"
+  },
+  "About": {
+    "title": "Auf Vertrauen Gebaut.",
+    "subtitle": "Bereit zu bauen?",
+    "description": "Unser Team ist bereit, Spitzenleistungen zu erbringen.",
+    "cta": "Anfrage senden",
+    "headingLine1": "Wir bauen,",
+    "headingLine2": "was",
+    "headingLine3": "bleibt.",
+    "summary": "Vom Spatenstich bis zur Schlüsselübergabe bietet SHPETIMI-R Construction strukturelle Integrität und zeitlose Handwerkskunst für Wohnungsbau, Gewerbe- und Industrieprojekte im Kosovo. Unser Team kümmert sich um jede Phase Ihres Bauvorhabens.",
+    "yearsActive": "JAHRE AKTIV",
+    "projectsDone": "PROJEKTE ABGESCHLOSSEN",
+    "missionLabel": "Unsere Mission",
+    "missionText": "Wir liefern Strukturen, die Trends überdauern — gebaut mit Präzision und Zweck bei jedem Projekt."
+  },
+  "Form": {
+    "title": "Terminanfrage",
+    "contact": "KONTAKT",
+    "headline": "Lassen Sie uns\nzusammen bauen.",
+    "description": "Erzählen Sie uns von Ihrem Termin, und unser Team wird sich innerhalb eines Werktages bei Ihnen melden.",
+    "fullName": "Vollständiger Name",
+    "phone": "Telefonnummer",
+    "email": "E-Mail",
+    "message": "Erzählen Sie uns von Ihrer Anfrage",
+    "required": "Pflichtfelder",
+    "confidential": "Ihre Informationen werden vertraulich behandelt und niemals weitergegeben.",
+    "button": "Anfrage senden",
+    "primary": "Primär",
+    "secondary": "Sekundär",
+    "mainOffice": "Hauptbüro",
+    "headquartersLocation": "Gjakove, Kosovo",
+    "placeholderName": "Max Mustermann",
+    "placeholderPhone": "+49 (0) XXX-XXXXXX",
+    "placeholderEmail": "name@beispiel.de",
+    "placeholderMessage": "Beschreiben Sie Ihren Projektumfang..."
+  },
+  "Office": {
+    "title": "Besuchen Sie Uns",
+    "addressTitle": "BÜROADRESSE",
+    "address": "Gjakove, Kosovo",
+    "emailTitle": "E-MAIL SENDEN",
+    "phoneTitle": "RUFEN SIE AN",
+    "hoursTitle": "BÜROZEITEN",
+    "hours": "Mo - Fr: 08:00 - 17:00",
+    "officeTag": "HAUPTBÜRO",
+    "location": "Standort",
+    "openMap": "In Maps öffnen",
+    "primary": "Primär",
+    "secondary": "Sekundär",
+    "description": "Wir glauben, dass die besten Bauprojekte im Kosovo mit einem <highlight>persönlichen Gespräch</highlight> beginnen. Besuchen Sie uns in unserem Büro und lassen Sie uns Ihre Vorstellungen, den Zeitplan und das, was wir gemeinsam aufbauen können, besprechen.",
+    "metaDescription": "Wir glauben, dass die besten Bauprojekte im Kosovo mit einem persönlichen Gespräch beginnen. Besuchen Sie uns in unserem Büro und lassen Sie uns Ihre Vorstellungen, den Zeitplan und das, was wir gemeinsam aufbauen können, besprechen."
+  },
+  "NotFound": {
+    "title": "Nicht Gefunden",
+    "description": "Die von Ihnen gesuchte Seite existiert nicht oder wurde dauerhaft an einen neuen Ort verschoben.",
+    "return": "ZURÜCK ZUR STARTSEITE",
+    "footer": "GEBAUT FÜR DIE EWIGKEIT"
+  }
+}

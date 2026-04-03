@@ -1,0 +1,79 @@
+{
+  "Home": {
+    "title": "DUKE NDËRTUAR PËRSOSMËRI",
+    "seoTitle": "Kompani Ndërtimi në Kosovë | Ndërtuar me Përsosmëri",
+    "subtitle": "TULLË PAS TULLE",
+    "description": "SHPETIMI-R është një kompani ndërtimi e besuar në Kosovë e përkushtuar për të ofruar cilësi dhe shërbime ndërtimore për objekte rezidenciale, komerciale dhe industriale.",
+    "cta": "NA KONTAKTONI",
+    "office": "ZRYRA KRYESORE"
+  },
+  "Navbar": {
+    "home": "KRYEFAQJA",
+    "about": "RRETH NESH",
+    "projects": "PROJEKTET",
+    "contact": "NA KONTAKTONI",
+    "office": "ZRYRA KRYESORE"
+  },
+  "Success": {
+    "title": "Kërkesa u dërgua",
+    "message": "Faleminderit që na kontaktuat. Ne kemi pranuar detajet e takimit tuaj dhe do të jemi në kontakt brenda një dite pune.",
+    "button": "Kthehu në Fillim"
+  },
+  "About": {
+    "title": "Ndërtuar mbi Besim.",
+    "subtitle": "Gati për të ndërtuar?",
+    "description": "Ekipi ynë është i gatshëm të ofrojë përsosmëri.",
+    "cta": "Dërgoni një kërkesë",
+    "headingLine1": "Ne ndërtojmë",
+    "headingLine2": "atë që",
+    "headingLine3": "zgjat.",
+    "summary": "Nga fillimi deri në prerjen e shiritit, SHPETIMI-R Construction ofron integritet strukturor dhe mjeshtëri të përjetshme në ndërtimet rezidenciale, projektet komerciale dhe industriale në Kosovë. Ekipi ynë trajton çdo fazë të projektit tuaj ndërtimor.",
+    "yearsActive": "VITE AKTIV",
+    "projectsDone": "PROJEKTE TË PËRFUNDUARA",
+    "missionLabel": "Misioni Ynë",
+    "missionText": "Të ofrojmë struktura që mbijetojnë trendet — të ndërtuara me precizion dhe qëllim në çdo projekt."
+  },
+  "Form": {
+    "title": "Kërkesë për takim",
+    "contact": "NA KONTAKTONI",
+    "headline": "Le të ndertojmë\nsë bashku.",
+    "description": "Na tregoni për takimin tuaj dhe ekipi ynë do t'ju përgjigjet brenda një dite pune.",
+    "fullName": "Emri i Plotë",
+    "phone": "Numri i telefonit",
+    "email": "Email",
+    "message": "Na tregoni për kërkesën tuaj",
+    "required": "Fushat e detyrueshme",
+    "confidential": "Informacioni juaj mbetet konfidencial dhe nuk ndahet kurrë.",
+    "button": "Dërgo kërkesën",
+    "primary": "Parësore",
+    "secondary": "Dytësore",
+    "mainOffice": "zyrja kryesore",
+    "headquartersLocation": "Gjakovë, Kosovë",
+    "placeholderName": "Filan Fisteku",
+    "placeholderPhone": "+383 (4X) XXX-XXX",
+    "placeholderEmail": "emri@shembull.com",
+    "placeholderMessage": "Përshkruani qëllimin e kërkesës suaj..."
+  },
+  "Office": {
+    "title": "Na Vizitoni",
+    "addressTitle": "ADRESA E ZYRËS",
+    "address": "Gjakovë, Kosovë",
+    "emailTitle": "NA SHKRUANI",
+    "phoneTitle": "NA TELEFONONI",
+    "hoursTitle": "ORARI I ZYRËS",
+    "hours": "Hënë - Premte: 08:00 - 17:00",
+    "officeTag": "zyrja KRYESORE",
+    "location": "Vendndodhja",
+    "openMap": "Hape në Maps",
+    "primary": "Parësore",
+    "secondary": "Dytësore",
+    "description": "Ne besojmë se projektet më të mira të ndërtimit në Kosovë fillojnë me një <highlight>bisedë ballë për ballë</highlight>. Na vizitoni në zyrën tonë dhe le të ulemi për të diskutuar vizionin, afatet kohore dhe çfarë mund të ndërtojmë së bashku.",
+    "metaDescription": "Ne besojmë se projektet më të mira të ndërtimit në Kosovë fillojnë me një bisedë ballë për ballë. Na vizitoni në zyrën tonë dhe le të ulemi për të diskutuar vizionin, afatet kohore dhe çfarë mund të ndërtojmë së bashku."
+  },
+  "NotFound": {
+    "title": "Nuk u Gjet",
+    "description": "Faqja që po kërkoni nuk ekziston ose është zhvendosur përgjithmonë në një vendndodhje të re.",
+    "return": "KTHEHU NË FAQEN KRYESORE",
+    "footer": "NDËRTUAR TË ZGJASË"
+  }
+}
