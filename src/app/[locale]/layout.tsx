@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import Navbar from "@/app/components/Navbar";
 import SplashScreen from "@/app/components/SplashScreen";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -77,6 +78,7 @@ export default async function RootLayout({
           <SplashScreen locale={locale} key={locale} />
           <Navbar />
           {children}
+          <SpeedInsights />
         </NextIntlClientProvider>
       </body>
     </html>
