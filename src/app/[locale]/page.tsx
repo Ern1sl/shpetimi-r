@@ -58,7 +58,7 @@ export default async function Home({
           </h1>
 
           <h3
-            className={`${font1.className} md:max-w-[650px] text-white text-[10px] md:text-[12px] lg:text-[16px] translate-y-[-52px] md:translate-y-0 uppercase opacity-85 text-center md:text-left`}
+            className={`${font1.className} md:max-w-[650px] text-white text-[10px] md:text-[12px] lg:text-[16px] translate-y-[-68px] md:translate-y-0 uppercase opacity-85 text-center md:text-left`}
           >
             {t("description")}
           </h3>

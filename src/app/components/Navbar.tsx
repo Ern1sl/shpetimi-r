@@ -1,13 +1,14 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link, usePathname } from "@/i18n/navigation";
 import { font4 } from "../[locale]/fonts";
 import { LayersIcon } from "./icons";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("Navbar");
   const pathname = usePathname();
 
@@ -26,11 +27,12 @@ export default function Navbar() {
             <Image
               src="/logo1.png"
               alt="Logo"
-              width={0}
-              height={0}
+              width={240}
+              height={60}
+              style={{ height: "auto" }}
               sizes="(max-width: 768px) 150px, 240px"
               priority
-              className="object-contain w-[150px] md:w-56 h-auto"
+              className="object-contain w-[150px] md:w-56"
             />
           </Link>
         </div>
@@ -89,9 +91,17 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       <div className="md:hidden w-full flex flex-col items-center">
-        <input type="checkbox" id="menu-toggle" className="peer hidden" />
+        {/* Backdrop */}
+        {isOpen && (
+          <div 
+            className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-[998]"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
 
-        <div className="w-full bg-[rgb(54,68,79)] overflow-hidden transition-all duration-500 ease-in-out shadow-xl max-h-0 peer-checked:max-h-[400px] peer-checked:border-b peer-checked:border-white/5 pointer-events-none peer-checked:pointer-events-auto">
+        <div className={`w-full bg-[rgb(54,68,79)] overflow-hidden transition-all duration-500 ease-in-out shadow-xl relative z-[999] ${
+          isOpen ? "max-h-[450px] border-b border-white/5" : "max-h-0"
+        }`}>
           <div
             className={`${font4.className} flex flex-col items-center py-10 space-y-8`}
           >
@@ -99,6 +109,7 @@ export default function Navbar() {
               {!isHome && (
                 <Link
                   href="/"
+                  onClick={() => setIsOpen(false)}
                   className="font-medium text-[11px] tracking-[0.2em] text-white hover:text-white/70 transition-colors uppercase whitespace-nowrap"
                 >
                   {t("home")}
@@ -106,41 +117,53 @@ export default function Navbar() {
               )}
               <Link
                 href="/about"
+                onClick={() => setIsOpen(false)}
                 className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${
-                  isAbout ? "text-white font-bold" : "text-white"
+                  isAbout ? "text-white font-bold underline underline-offset-8" : "text-white"
                 }`}
               >
                 {t("about")}
               </Link>
               <Link
                 href="/projects"
+                onClick={() => setIsOpen(false)}
                 className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${
-                  isProjects ? "text-white font-bold" : "text-white"
+                  isProjects ? "text-white font-bold underline underline-offset-8" : "text-white"
                 }`}
               >
                 {t("projects")}
               </Link>
               <Link
                 href="/form"
+                onClick={() => setIsOpen(false)}
                 className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${
-                  isContact ? "text-white font-bold" : "text-white"
+                  isContact ? "text-white font-bold underline underline-offset-8" : "text-white"
                 }`}
               >
                 {t("contact")}
               </Link>
+              <Link
+                href="/office"
+                onClick={() => setIsOpen(false)}
+                className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${
+                  isOffice ? "text-white font-bold underline underline-offset-8" : "text-white"
+                }`}
+              >
+                {t("office")}
+              </Link>
             </div>
 
             <div className="w-16 h-[1px] bg-white/10 my-2"></div>
-            <LanguageSwitcher />
+            <LanguageSwitcher onSelect={() => setIsOpen(false)} />
           </div>
         </div>
 
-        <label
-          htmlFor="menu-toggle"
-          className="mt-4 p-3 bg-white/5 active:bg-white/10 hover:bg-white/10 rounded-full transition-all duration-300 border border-white/5 outline-none select-none cursor-pointer pointer-events-auto shadow-2xl"
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="mt-4 p-3 bg-white/5 active:bg-white/10 hover:bg-white/10 rounded-full transition-all duration-300 border border-white/5 outline-none select-none cursor-pointer pointer-events-auto shadow-2xl relative z-[1000]"
         >
           <LayersIcon />
-        </label>
+        </button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { font1, font2 } from "../../fonts";
 
 export default function SuccessPage() {

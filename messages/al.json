@@ -5,14 +5,14 @@
     "subtitle": "TULLË PAS TULLE",
     "description": "SHPETIMI-R është një kompani ndërtimi e besuar në Kosovë e përkushtuar për të ofruar cilësi dhe shërbime ndërtimore për objekte rezidenciale, komerciale dhe industriale.",
     "cta": "NA KONTAKTONI",
-    "office": "ZRYRA KRYESORE"
+    "office": "ZYRJA KRYESORE"
   },
   "Navbar": {
     "home": "KRYEFAQJA",
     "about": "RRETH NESH",
     "projects": "PROJEKTET",
     "contact": "NA KONTAKTONI",
-    "office": "ZRYRA KRYESORE"
+    "office": "ZYRJA KRYESORE"
   },
   "Success": {
     "title": "Kërkesa u dërgua",
@@ -28,7 +28,7 @@
     "headingLine2": "atë që",
     "headingLine3": "zgjat.",
     "summary": "Nga fillimi deri në prerjen e shiritit, SHPETIMI-R Construction ofron integritet strukturor dhe mjeshtëri të përjetshme në ndërtimet rezidenciale, projektet komerciale dhe industriale në Kosovë. Ekipi ynë trajton çdo fazë të projektit tuaj ndërtimor.",
-    "yearsActive": "VITE AKTIV",
+    "yearsActive": "VITE AKTIVË",
     "projectsDone": "PROJEKTE TË PËRFUNDUARA",
     "missionLabel": "Misioni Ynë",
     "missionText": "Të ofrojmë struktura që mbijetojnë trendet — të ndërtuara me precizion dhe qëllim në çdo projekt."
@@ -44,7 +44,10 @@
     "message": "Na tregoni për kërkesën tuaj",
     "required": "Fushat e detyrueshme",
     "confidential": "Informacioni juaj mbetet konfidencial dhe nuk ndahet kurrë.",
+    "invalidEmail": "Ju lutem shënoni një email të vlefshëm",
+    "invalidPhone": "Numër i pavlefshëm (nuk lejohen shkronjat)",
     "button": "Dërgo kërkesën",
+    "sending": "Duke u dërguar...",
     "primary": "Parësore",
     "secondary": "Dytësore",
     "mainOffice": "zyrja kryesore",

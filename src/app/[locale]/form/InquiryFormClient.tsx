@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link, useRouter } from "@/i18n/navigation";
 import { font1, font2 } from "../fonts";
+import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
 import {
   EmailIcon,
   PhoneIcon,
@@ -13,10 +14,64 @@ import { useTranslations } from "next-intl";
 
 export default function InquiryFormClient({ locale }: { locale: string }) {
   const t = useTranslations("Form");
+  const router = useRouter();
+
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormError(null);
+
+    // Basic regex for email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setFormError("invalid_email");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Advanced phone validation using libphonenumber-js
+    // We hint a default country based on the current locale
+    const defaultCountry: CountryCode = locale === "al" ? "XK" : locale === "de" ? "DE" : "GB";
+    const phoneNumber = parsePhoneNumberFromString(phone, defaultCountry);
+
+    if (!phoneNumber || !phoneNumber.isValid()) {
+      setFormError("invalid_phone");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const res = await fetch(`/${locale}/form/api`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ fullName, phone, email, message }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        // Soft navigation to success page (avoids splash screen)
+        router.push("/form/success");
+      } else {
+        setFormError(data.error || "send_failed");
+      }
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setFormError("server_error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <div
@@ -99,8 +154,7 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
         </div>
 
         <form
-          action={`/${locale}/form/api`}
-          method="POST"
+          onSubmit={handleSubmit}
           className="group space-y-6 md:space-y-8 max-w-lg"
           autoComplete="off"
         >
@@ -124,10 +178,12 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
               </label>
               <input
                 name="phone"
+                type="tel"
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder={t("placeholderPhone")}
+                pattern="[0-9\+\-\(\)\s]*"
                 className="bg-transparent border-b border-white/30 py-3 focus:border-white outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600"
               />
             </div>
@@ -135,11 +191,12 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
 
           <div className="flex flex-col relative pointer-events-auto">
             <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80">
-              {t("email")}
+              {t("email")} *
             </label>
             <input
               name="email"
               type="email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t("placeholderEmail")}
@@ -166,12 +223,20 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
             <p className="text-[9px] text-white uppercase tracking-[0.2em] xl:tracking-widest italic opacity-60 leading-relaxed xl:max-w-[200px] font-normal w-full">
               {t("confidential")}
             </p>
-            <div className="flex items-center gap-6 self-start xl:self-auto w-full xl:w-auto">
+            <div className="flex flex-col items-center gap-6 self-start xl:self-auto w-full xl:w-auto">
+              {formError && (
+                <p className="text-red-400 text-[10px] uppercase tracking-widest">
+                  {formError === "invalid_email" ? t("invalidEmail") : 
+                   formError === "invalid_phone" ? t("invalidPhone") : 
+                   formError === "missing_config" ? "Config Error" : "Submission Failed"}
+                </p>
+              )}
               <button
                 type="submit"
-                className="px-8 xl:px-12 py-4 xl:py-5 w-full xl:w-auto text-[9px] xl:text-[10px] font-normal uppercase tracking-[0.2em] xl:tracking-[0.4em] transition-all duration-300 border-2 shadow-2xl shadow-black/20 group-invalid:bg-white/5 group-invalid:text-gray-500 group-invalid:border-white/10 group-invalid:cursor-not-allowed group-valid:bg-white group-valid:text-black group-valid:border-white group-valid:hover:bg-transparent group-valid:hover:text-white group-valid:cursor-pointer"
+                disabled={isSubmitting}
+                className="px-8 xl:px-12 py-4 xl:py-5 w-full xl:w-auto text-[9px] xl:text-[10px] font-normal uppercase tracking-[0.2em] xl:tracking-[0.4em] transition-all duration-300 border-2 shadow-2xl shadow-black/20 group-invalid:bg-white/5 group-invalid:text-gray-500 group-invalid:border-white/10 group-invalid:cursor-not-allowed group-valid:bg-white group-valid:text-black group-valid:border-white group-valid:hover:bg-transparent group-valid:hover:text-white group-valid:cursor-pointer disabled:opacity-50 disabled:cursor-wait"
               >
-                {t("button")} →
+                {isSubmitting ? t("sending") : `${t("button")} →`}
               </button>
             </div>
           </div>

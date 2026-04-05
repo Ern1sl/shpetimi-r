@@ -26,41 +26,62 @@ export async function POST(req: NextRequest, context: any) {
 
     const { fullName, phone, email, message } = body;
 
+    const isAjax = req.headers.get("accept")?.includes("application/json");
+
     if (!process.env.RESEND_API_KEY || !process.env.CONTACT_RECEIVER_EMAIL) {
+      if (isAjax)
+        return NextResponse.json({ error: "missing_config" }, { status: 500 });
       return NextResponse.redirect(`${proto}://${host}/form?error=config`, {
         status: 303,
       });
     }
 
     const { error } = await resend.emails.send({
-      from: process.env.CONTACT_SENDER_EMAIL || "onboarding@resend.dev",
+      from: `SHPETIMI-R <${process.env.CONTACT_SENDER_EMAIL || "info@shpetimi-r.com"}>`,
       to: process.env.CONTACT_RECEIVER_EMAIL,
-      subject: `[Portfolio] Inquiry from ${fullName || "Unknown"}`,
+      subject: `New Inquiry: ${fullName || "Unknown"}`,
       text: `Name: ${fullName}\nEmail: ${email || "Not Provided"}\nPhone: ${phone}\nMessage: ${message}`,
       html: `
-        <div style="font-family: sans-serif; padding: 20px;">
-          <h2>Portfolio Inquiry</h2>
-          <p><strong>From:</strong> ${fullName} (${email || "Email not provided"})</p>
+        <div style="font-family: sans-serif; padding: 20px; color: #333; max-width: 600px; border: 1px solid #eee;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <img src="https://www.shpetimi-r.com/logo2.png" alt="SHPETIMI-R" style="width: 200px; height: auto;" />
+          </div>
+          <h2 style="color: #36444f; border-bottom: 2px solid #36444f; padding-bottom: 10px;">New Website Inquiry</h2>
+          <p><strong>From:</strong> ${fullName}</p>
+          <p><strong>Email:</strong> ${email || "Not provided"}</p>
           <p><strong>Phone:</strong> ${phone}</p>
-          <hr />
-          <p>${message}</p>
+          <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px;">
+            <p><strong>Message:</strong></p>
+            <p style="white-space: pre-wrap;">${message}</p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #eee; margin-top: 30px;" />
+          <p style="font-size: 10px; color: #999; text-align: center;">Sent from shpetimi-r.com</p>
         </div>
       `,
     });
 
     if (error) {
       console.error("[Resend error]", error);
+      if (isAjax)
+        return NextResponse.json({ error: "send_failed" }, { status: 500 });
       return NextResponse.redirect(`${proto}://${host}/form?error=send`, {
         status: 303,
       });
     }
 
-    // SUCCESS — redirect to the dedicated success page using the correct host
+    // SUCCESS
+    if (isAjax) return NextResponse.json({ success: true });
     return NextResponse.redirect(`${proto}://${host}/form/success`, {
       status: 303,
     });
   } catch (err) {
     console.error("[Form API] Unexpected error:", err);
+    const host = req.headers.get("host") || "localhost:3000";
+    const proto = host.startsWith("localhost") ? "http" : "http";
+    const isAjax = req.headers.get("accept")?.includes("application/json");
+
+    if (isAjax)
+      return NextResponse.json({ error: "server_error" }, { status: 500 });
     return NextResponse.redirect(`${proto}://${host}/form?error=server`, {
       status: 303,
     });

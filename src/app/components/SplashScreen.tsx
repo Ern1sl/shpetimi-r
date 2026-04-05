@@ -5,43 +5,30 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { font2 } from "../[locale]/fonts";
 
-// Persistence variable outside the component to survive soft navigations
-let lastShownLocale: string | null = null;
-
-// Persistence variable outside the component to survive soft navigations
-let hasShown = false;
-
 export default function SplashScreen({ locale }: { locale?: string }) {
   const t = useTranslations("Home");
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only show if it hasn't been shown in this specific JS session (resets on refresh)
-    if (!hasShown) {
-      setIsVisible(true);
-      hasShown = true;
-      document.body.style.overflow = "hidden";
+    setIsVisible(true);
+    document.body.style.overflow = "hidden";
 
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-        document.body.style.overflow = "auto";
-      }, 2800);
-
-      return () => {
-        clearTimeout(timer);
-        document.body.style.overflow = "auto";
-      };
-    } else {
-      // Ensure body is unlocked if we skip the splash
+    const timer = setTimeout(() => {
+      setIsVisible(false);
       document.body.style.overflow = "auto";
-    }
+    }, 2800);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = "auto";
+    };
   }, []);
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          key="splash"
+          key={locale || "splash"}
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 1.4, ease: [0.7, 0, 0.3, 1] }} // "Curtain" ease-in-out
