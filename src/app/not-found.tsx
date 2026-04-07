@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { font1, font2 } from "./[locale]/fonts";
 
 export default function GlobalNotFound() {
@@ -25,10 +24,12 @@ export default function GlobalNotFound() {
 
       <div className="max-w-md mx-auto">
         <p className="text-gray-300 text-[11px] md:text-xs mb-14 uppercase tracking-[0.3em] leading-relaxed opacity-70">
-          The page you are looking for does not exist or has been permanently moved to a new location.
+          The page you are looking for does not exist or has been permanently
+          moved to a new location.
         </p>
 
-        <Link
+        {/* Using a standard <a> tag here to ensure a full refresh and clean state when returning from a global 404 */}
+        <a
           href="/"
           className="group inline-flex items-center justify-center gap-4 bg-white/5 border border-white/20 px-12 py-5 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] hover:bg-white hover:text-[#36444f] transition-all duration-300"
         >
@@ -36,7 +37,7 @@ export default function GlobalNotFound() {
             ←
           </span>
           RETURN TO MAIN PAGE
-        </Link>
+        </a>
       </div>
 
       <div className="absolute bottom-10 left-10 hidden md:block">

@@ -3,17 +3,25 @@ import Link from "next/link";
 import { font1, font2 } from "../fonts";
 import { getTranslations } from "next-intl/server";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "About" });
 
   return {
     title: t("title"),
-    description: t("summary") // Using summary as the meta description
+    description: t("summary"), // Using summary as the meta description
   };
 }
 
-export default async function About({ params }: { params: Promise<{ locale: string }> }) {
+export default async function About({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "About" });
 

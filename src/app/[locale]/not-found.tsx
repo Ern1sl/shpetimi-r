@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { font1, font2 } from "./fonts";
 import { useTranslations } from "next-intl";
 
@@ -32,7 +31,7 @@ export default function NotFound() {
           {t("description")}
         </p>
 
-        <Link
+        <a
           href="/"
           className="group inline-flex items-center justify-center gap-4 bg-white/5 border border-white/20 px-12 py-5 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] hover:bg-white hover:text-[#36444f] transition-all duration-300"
         >
@@ -40,7 +39,7 @@ export default function NotFound() {
             ←
           </span>
           {t("return")}
-        </Link>
+        </a>
       </div>
 
       <div className="absolute bottom-10 left-10 hidden md:block">
