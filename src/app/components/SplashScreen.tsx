@@ -5,18 +5,29 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { font2 } from "../[locale]/fonts";
 
+// Module-level variable survives client-side navigation (SPA) but resets on hard reload/refresh.
+let hasShown = false;
+
 export default function SplashScreen({ locale }: { locale?: string }) {
   const t = useTranslations("Home");
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // If it already showed in this SPA session, don't show it again.
+    // This allows it to show on RELOADS (since JS heap is wiped) but not on NAVIGATION.
+    if (hasShown) {
+      setIsVisible(false);
+      return;
+    }
+
     setIsVisible(true);
     document.body.style.overflow = "hidden";
 
     const timer = setTimeout(() => {
       setIsVisible(false);
       document.body.style.overflow = "auto";
-    }, 1800); // Maintained the snappier 1.8s duration
+      hasShown = true;
+    }, 1800);
 
     return () => {
       clearTimeout(timer);

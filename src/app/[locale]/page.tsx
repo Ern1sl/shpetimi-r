@@ -40,7 +40,7 @@ export default async function Home({
             fill
             priority
             unoptimized
-            quality={90}
+            quality={100}
             sizes="100vw"
             className="object-cover object-[25%_center] md:object-center"
           />

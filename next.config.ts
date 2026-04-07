@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
   images: {
-    qualities: [75, 90],
+    qualities: [75, 85, 90, 100],
   },
   allowedDevOrigins: ["192.168.88.79", "192.168.1.8", "localhost:3000"],
 };

@@ -38,8 +38,9 @@ export default async function About({
             alt="SHPETIMI-R"
             width={60}
             height={60}
-            style={{ height: "auto" }}
+            style={{ width: "60px", height: "auto" }}
             sizes="60px"
+            priority
             className="object-contain"
           />
           <div>
@@ -105,7 +106,7 @@ export default async function About({
               alt="Mission"
               width={40}
               height={40}
-              style={{ height: "auto" }}
+              style={{ width: "40px", height: "auto" }}
               sizes="40px"
               className="object-contain mb-4 md:mb-6 group-hover:scale-110 transition-transform duration-500"
             />
