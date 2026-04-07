@@ -78,5 +78,9 @@
     "description": "The page you are looking for does not exist or has been permanently moved to a new location.",
     "return": "RETURN TO MAIN PAGE",
     "footer": "BUILT TO LAST"
+  },
+  "Projects": {
+    "title": "OUR PROJECTS",
+    "description": "Explore our recent construction work across Kosovo, showcasing our commitment to quality and structural integrity."
   }
 }

@@ -78,5 +78,9 @@
     "description": "Faqja që po kërkoni nuk ekziston ose është zhvendosur përgjithmonë në një vendndodhje të re.",
     "return": "KTHEHU NË FAQEN KRYESORE",
     "footer": "NDËRTUAR TË ZGJASË"
+  },
+  "Projects": {
+    "title": "PROJEKTET TONA",
+    "description": "Eksploroni punët tona të fundit në ndërtim nëpër Kosovë, duke treguar përkushtimin tonë ndaj cilësisë dhe integritetit strukturor."
   }
 }

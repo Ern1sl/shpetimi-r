@@ -78,5 +78,9 @@
     "description": "Die von Ihnen gesuchte Seite existiert nicht oder wurde dauerhaft an einen neuen Ort verschoben.",
     "return": "ZURÜCK ZUR STARTSEITE",
     "footer": "GEBAUT FÜR DIE EWIGKEIT"
+  },
+  "Projects": {
+    "title": "UNSERE PROJEKTE",
+    "description": "Erkunden Sie unsere aktuellen Bauarbeiten im Kosovo, die unser Engagement für Qualität und strukturelle Integrität widerspiegeln."
   }
 }
