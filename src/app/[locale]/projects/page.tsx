@@ -25,10 +25,10 @@ export default async function Projects({
   const t = await getTranslations({ locale, namespace: "Projects" });
 
   const videos = [
-    { src: "/video.mp4", id: 1 },
-    { src: "/video2.mp4", id: 2 },
-    { src: "/video3.mp4", id: 3 },
-    { src: "/video4.MP4", id: 4 },
+    { src: "/Video (1) (1).mp4", id: 1 },
+    { src: "/Video2 (1) (1).mp4", id: 2 },
+    { src: "/Video3 (1) (1).mp4", id: 3 },
+    { src: "/Video4 (1).mp4", id: 4 },
   ];
 
   return (
