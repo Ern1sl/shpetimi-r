@@ -28,7 +28,6 @@ export default function GlobalNotFound() {
           moved to a new location.
         </p>
 
-        {/* Using a standard <a> tag here to ensure a full refresh and clean state when returning from a global 404 */}
         <a
           href="/"
           className="group inline-flex items-center justify-center gap-4 bg-white/5 border border-white/20 px-12 py-5 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] hover:bg-white hover:text-[#36444f] transition-all duration-300"

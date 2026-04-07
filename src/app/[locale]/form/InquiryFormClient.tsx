@@ -11,67 +11,67 @@ import {
 } from "@/app/components/icons";
 import ContactRow from "@/app/components/ContactRow";
 import { useTranslations } from "next-intl";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function InquiryFormClient({ locale }: { locale: string }) {
   const t = useTranslations("Form");
   const router = useRouter();
 
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setFormError(null);
+  const defaultCountry: CountryCode = locale === "al" ? "XK" : locale === "de" ? "DE" : "GB";
 
-    // Basic regex for email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setFormError("invalid_email");
-      setIsSubmitting(false);
-      return;
-    }
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      phone: "",
+      email: "",
+      message: "",
+    },
+    validationSchema: Yup.object({
+      fullName: Yup.string().required(t("required") || "Required"),
+      phone: Yup.string()
+        .required(t("required") || "Required")
+        .test("is-valid-phone", t("invalidPhone"), (value) => {
+          if (!value) return false;
+          const phoneNumber = parsePhoneNumberFromString(value, defaultCountry);
+          return phoneNumber ? phoneNumber.isValid() : false;
+        }),
+      email: Yup.string()
+        .email(t("invalidEmail"))
+        .required(t("required") || "Required"),
+      message: Yup.string().required(t("required") || "Required"),
+    }),
+    onSubmit: async (values, { setSubmitting }) => {
+      setFormError(null);
 
-    // Advanced phone validation using libphonenumber-js
-    // We hint a default country based on the current locale
-    const defaultCountry: CountryCode = locale === "al" ? "XK" : locale === "de" ? "DE" : "GB";
-    const phoneNumber = parsePhoneNumberFromString(phone, defaultCountry);
+      try {
+        const res = await fetch(`/${locale}/form/api`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(values),
+        });
 
-    if (!phoneNumber || !phoneNumber.isValid()) {
-      setFormError("invalid_phone");
-      setIsSubmitting(false);
-      return;
-    }
+        const data = await res.json();
 
-    try {
-      const res = await fetch(`/${locale}/form/api`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ fullName, phone, email, message }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        // Soft navigation to success page (avoids splash screen)
-        router.push("/form/success");
-      } else {
-        setFormError(data.error || "send_failed");
+        if (data.success) {
+          // Soft navigation to success page (avoids splash screen)
+          router.push("/form/success");
+        } else {
+          setFormError(data.error || "send_failed");
+        }
+      } catch (err) {
+        console.error("Form submission error:", err);
+        setFormError("server_error");
+      } finally {
+        setSubmitting(false);
       }
-    } catch (err) {
-      console.error("Form submission error:", err);
-      setFormError("server_error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
+    },
+  });
 
   return (
     <div
@@ -154,69 +154,77 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
         </div>
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={formik.handleSubmit}
           className="group space-y-6 md:space-y-8 max-w-lg"
           autoComplete="off"
+          noValidate
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pointer-events-auto">
-            <div className="flex flex-col relative">
-              <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80">
+            <div className="flex flex-col relative leading-none">
+              <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80 block">
                 {t("fullName")} *
               </label>
               <input
-                name="fullName"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                {...formik.getFieldProps("fullName")}
                 placeholder={t("placeholderName")}
-                className="bg-transparent border-b border-white/30 py-3 focus:border-white outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600"
+                className={`bg-transparent border-b py-3 outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
+                  formik.touched.fullName && formik.errors.fullName ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+                }`}
               />
+              {formik.touched.fullName && formik.errors.fullName && (
+                <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.fullName as string}</div>
+              )}
             </div>
-            <div className="flex flex-col relative">
-              <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80">
+            <div className="flex flex-col relative leading-none">
+              <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80 block">
                 {t("phone")} *
               </label>
               <input
-                name="phone"
                 type="tel"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                {...formik.getFieldProps("phone")}
                 placeholder={t("placeholderPhone")}
-                pattern="[0-9\+\-\(\)\s]*"
-                className="bg-transparent border-b border-white/30 py-3 focus:border-white outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600"
+                className={`bg-transparent border-b py-3 outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
+                  formik.touched.phone && formik.errors.phone ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+                }`}
               />
+              {formik.touched.phone && formik.errors.phone && (
+                <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.phone as string}</div>
+              )}
             </div>
           </div>
 
-          <div className="flex flex-col relative pointer-events-auto">
-            <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80">
+          <div className="flex flex-col relative pointer-events-auto leading-none">
+            <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80 block">
               {t("email")} *
             </label>
             <input
-              name="email"
               type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...formik.getFieldProps("email")}
               placeholder={t("placeholderEmail")}
-              className="bg-transparent border-b border-white/30 py-3 focus:border-white outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600"
+              className={`bg-transparent border-b py-3 outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
+                formik.touched.email && formik.errors.email ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+              }`}
             />
+            {formik.touched.email && formik.errors.email && (
+              <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.email as string}</div>
+            )}
           </div>
 
-          <div className="flex flex-col relative pointer-events-auto">
-            <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80">
+          <div className="flex flex-col relative pointer-events-auto leading-none">
+            <label className="text-[10px] text-white uppercase tracking-widest mb-3 opacity-80 block">
               {t("message")} *
             </label>
             <textarea
-              name="message"
-              required
               rows={4}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              {...formik.getFieldProps("message")}
               placeholder={t("placeholderMessage")}
-              className="bg-transparent border-b border-white/30 py-3 focus:border-white outline-none resize-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600"
+              className={`bg-transparent border-b py-3 outline-none resize-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
+                formik.touched.message && formik.errors.message ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+              }`}
             />
+            {formik.touched.message && formik.errors.message && (
+              <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.message as string}</div>
+            )}
           </div>
 
           <div className="pt-4 flex flex-col xl:flex-row xl:items-center justify-between gap-8 pointer-events-auto">
@@ -226,17 +234,15 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
             <div className="flex flex-col items-center gap-6 self-start xl:self-auto w-full xl:w-auto">
               {formError && (
                 <p className="text-red-400 text-[10px] uppercase tracking-widest">
-                  {formError === "invalid_email" ? t("invalidEmail") : 
-                   formError === "invalid_phone" ? t("invalidPhone") : 
-                   formError === "missing_config" ? "Config Error" : "Submission Failed"}
+                  {formError === "missing_config" ? "Config Error" : "Submission Failed"}
                 </p>
               )}
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="px-8 xl:px-12 py-4 xl:py-5 w-full xl:w-auto text-[9px] xl:text-[10px] font-normal uppercase tracking-[0.2em] xl:tracking-[0.4em] transition-all duration-300 border-2 shadow-2xl shadow-black/20 group-invalid:bg-white/5 group-invalid:text-gray-500 group-invalid:border-white/10 group-invalid:cursor-not-allowed group-valid:bg-white group-valid:text-black group-valid:border-white group-valid:hover:bg-transparent group-valid:hover:text-white group-valid:cursor-pointer disabled:opacity-50 disabled:cursor-wait"
+                disabled={formik.isSubmitting}
+                className="px-8 xl:px-12 py-4 xl:py-5 w-full xl:w-auto text-[9px] xl:text-[10px] font-normal uppercase tracking-[0.2em] xl:tracking-[0.4em] transition-all duration-300 border-2 shadow-2xl shadow-black/20 bg-white text-black border-white hover:bg-transparent hover:text-white cursor-pointer disabled:opacity-50 disabled:cursor-wait"
               >
-                {isSubmitting ? t("sending") : `${t("button")} →`}
+                {formik.isSubmitting ? t("sending") : `${t("button")} →`}
               </button>
             </div>
           </div>
