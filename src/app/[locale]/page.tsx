@@ -2,6 +2,8 @@ import { font1, font2, font3 } from "./fonts";
 import Link from "next/link";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { InstagramIcon, FacebookIcon, ThreadsIcon } from "@/app/components/icons";
+
 
 export async function generateMetadata({
   params,
@@ -65,7 +67,7 @@ export default async function Home({
         </div>
 
         <div
-          className={`${font3.className} absolute bottom-10 left-0 w-full md:left-12 lg:left-20 flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4 z-20`}
+          className={`${font3.className} absolute bottom-10 left-0 w-full px-4 md:px-10 lg:px-12 xl:px-16 flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4 z-20`}
         >
           <Link
             href="/form"
@@ -79,7 +81,39 @@ export default async function Home({
           >
             {t("office")}
           </Link>
+
+          {/* SOCIAL LINKS */}
+          <div className="flex items-center gap-5 ml-2 md:ml-4 translate-y-0.5">
+            <a
+              href="https://www.instagram.com/shpetimi_r/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
+              title="Instagram"
+            >
+              <InstagramIcon size={22} />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=100065621764033"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
+              title="Facebook"
+            >
+              <FacebookIcon size={22} />
+            </a>
+            <a
+              href="https://www.threads.net/@shpetimi_r"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors duration-300 transform hover:scale-110"
+              title="Threads"
+            >
+              <ThreadsIcon size={24} />
+            </a>
+          </div>
         </div>
+
       </div>
     </>
   );
