@@ -25,10 +25,10 @@ export default async function Projects({
   const t = await getTranslations({ locale, namespace: "Projects" });
 
   const videos = [
-    { src: "/Video (1) (1).mp4", id: 1 },
-    { src: "/Video2 (1) (1).mp4", id: 2 },
-    { src: "/Video3 (1) (1).mp4", id: 3 },
-    { src: "/Video4 (1).mp4", id: 4 },
+    { src: "https://7r6meicnrf6qrvft.private.blob.vercel-storage.com/Video%20%281%29%20%281%29.mp4", id: 1 },
+    { src: "https://7r6meicnrf6qrvft.private.blob.vercel-storage.com/Video2%20%281%29%20%281%29.mp4", id: 2 },
+    { src: "https://7r6meicnrf6qrvft.private.blob.vercel-storage.com/Video3%20%281%29%20%281%29.mp4", id: 3 },
+    { src: "https://7r6meicnrf6qrvft.private.blob.vercel-storage.com/Video4%20%281%29.mp4", id: 4 },
   ];
 
   return (
