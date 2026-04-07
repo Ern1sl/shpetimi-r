@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   images: {
     qualities: [75, 85, 90, 100],
   },
-  allowedDevOrigins: ["192.168.88.79", "192.168.1.8", "localhost:3000"],
+  allowedDevOrigins: ["192.168.88.79", "192.168.1.8", "192.168.0.27", "localhost:3000"],
 };
 
 export default withNextIntl(nextConfig);

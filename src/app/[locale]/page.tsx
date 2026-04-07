@@ -50,7 +50,7 @@ export default async function Home({
 
         <div className="absolute bottom-0 left-0 w-full h-[40%] md:top-0 md:h-full md:w-[50%] lg:w-[48%] xl:w-[45%] flex flex-col items-center md:items-start justify-center gap-4 md:gap-8 z-10 px-4 md:px-10 lg:px-12 xl:px-16 -translate-y-6 md:translate-y-0">
           <h3
-            className={`${font2.className} text-gray-200 text-[10px] md:text-[13px] lg:text-[15px] translate-y-0 tracking-[0.4em] uppercase opacity-70`}
+            className={`${font2.className} text-gray-200 text-[10px] md:text-[13px] lg:text-[15px] translate-y-[-20px] md:translate-y-0 tracking-[0.4em] uppercase opacity-70`}
           >
             SHPETIMI-R CONSTRUCTION
           </h3>
@@ -63,7 +63,7 @@ export default async function Home({
           </h1>
 
           <h3
-            className={`${font1.className} md:max-w-[650px] text-white text-[10px] md:text-[12px] lg:text-[16px] translate-y-[-80px] md:translate-y-0 uppercase opacity-85 text-center md:text-left`}
+            className={`${font1.className} md:max-w-[650px] text-white text-[10px] md:text-[12px] lg:text-[16px] translate-y-[-94px] md:translate-y-0 uppercase opacity-85 text-center md:text-left`}
           >
             {t("description")}
           </h3>
