@@ -16,9 +16,9 @@ export default function LanguageSwitcher({ onSelect }: { onSelect?: () => void }
           locale={cur as any}
           replace
           onClick={() => onSelect?.()}
-          className={`text-[10px] uppercase tracking-widest transition-colors ${
+          className={`text-[10px] uppercase tracking-widest transition-colors py-2 px-1 ${
             localeActive === cur
-              ? "text-white font-bold underline underline-offset-4 decoration-white/30"
+              ? "text-white font-bold underline underline-offset-8 decoration-white/40"
               : "text-white/40 hover:text-white"
           }`}
         >

@@ -96,7 +96,7 @@ export default async function RootLayout({
   return (
     <>
       <NextIntlClientProvider messages={messages}>
-        <SplashScreen locale={locale} key={locale} />
+        <SplashScreen locale={locale} />
         <Navbar />
         {children}
         <SpeedInsights />

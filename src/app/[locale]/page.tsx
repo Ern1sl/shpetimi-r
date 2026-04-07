@@ -2,8 +2,11 @@ import { font1, font2, font3 } from "./fonts";
 import Link from "next/link";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { InstagramIcon, FacebookIcon, ThreadsIcon } from "@/app/components/icons";
-
+import {
+  InstagramIcon,
+  FacebookIcon,
+  ThreadsIcon,
+} from "@/app/components/icons";
 
 export async function generateMetadata({
   params,
@@ -60,30 +63,33 @@ export default async function Home({
           </h1>
 
           <h3
-            className={`${font1.className} md:max-w-[650px] text-white text-[10px] md:text-[12px] lg:text-[16px] translate-y-[-68px] md:translate-y-0 uppercase opacity-85 text-center md:text-left`}
+            className={`${font1.className} md:max-w-[650px] text-white text-[10px] md:text-[12px] lg:text-[16px] translate-y-[-80px] md:translate-y-0 uppercase opacity-85 text-center md:text-left`}
           >
             {t("description")}
           </h3>
         </div>
 
         <div
-          className={`${font3.className} absolute bottom-10 left-0 w-full px-4 md:px-10 lg:px-12 xl:px-16 flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4 z-20`}
+          className={`${font3.className} absolute bottom-10 left-0 w-full px-4 md:px-10 lg:px-12 xl:px-16 flex flex-col md:flex-row items-center justify-center md:justify-start gap-6 md:gap-4 z-20`}
         >
-          <Link
-            href="/form"
-            className="h-14 md:h-16 flex items-center justify-center border border-white text-white rounded-lg transition-all duration-300 tracking-wider bg-transparent hover:bg-white/10 whitespace-nowrap text-xs md:text-sm lg:text-base px-6 md:px-10 w-40 sm:w-48 md:w-72 lg:w-80"
-          >
-            {t("cta")}
-          </Link>
-          <Link
-            href="/office"
-            className="md:hidden h-14 flex items-center justify-center border border-white text-white rounded-lg transition-all duration-300 tracking-wider font-medium bg-transparent hover:bg-white/10 whitespace-nowrap text-xs px-6 md:px-10 w-40 sm:w-48"
-          >
-            {t("office")}
-          </Link>
+          {/* BUTTONS */}
+          <div className="flex flex-row items-center justify-center md:justify-start gap-3 md:gap-4 w-full md:w-auto">
+            <Link
+              href="/form"
+              className="h-14 md:h-16 flex items-center justify-center border border-white text-white rounded-lg transition-all duration-300 tracking-wider bg-transparent hover:bg-white/10 whitespace-nowrap text-xs md:text-sm lg:text-base px-6 md:px-10 w-40 sm:w-48 md:w-72 lg:w-80"
+            >
+              {t("cta")}
+            </Link>
+            <Link
+              href="/office"
+              className="md:hidden h-14 flex items-center justify-center border border-white text-white rounded-lg transition-all duration-300 tracking-wider font-medium bg-transparent hover:bg-white/10 whitespace-nowrap text-xs px-6 md:px-10 w-40 sm:w-48"
+            >
+              {t("office")}
+            </Link>
+          </div>
 
           {/* SOCIAL LINKS */}
-          <div className="flex items-center gap-5 ml-2 md:ml-4 translate-y-0.5">
+          <div className="flex items-center justify-center md:justify-start gap-5 w-full md:w-auto translate-y-0.5 md:ml-4 lg:ml-6">
             <a
               href="https://www.instagram.com/shpetimi_r/"
               target="_blank"
@@ -113,7 +119,6 @@ export default async function Home({
             </a>
           </div>
         </div>
-
       </div>
     </>
   );

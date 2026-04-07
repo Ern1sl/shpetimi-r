@@ -16,7 +16,7 @@ export default function SplashScreen({ locale }: { locale?: string }) {
     const timer = setTimeout(() => {
       setIsVisible(false);
       document.body.style.overflow = "auto";
-    }, 2800);
+    }, 1800); // Maintained the snappier 1.8s duration
 
     return () => {
       clearTimeout(timer);
