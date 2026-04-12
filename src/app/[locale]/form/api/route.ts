@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { NextRequest, NextResponse } from "next/server"; // server-side request/ response objects in nextjs app router
+import { Resend } from "resend"; // library for sending emails through resend service
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY); // initialized with your API key from .env
 
 export async function POST(req: NextRequest, context: any) {
+  // this handles POST requests to /form/api (your form submission)
   // Read the host so the redirect works on any IP (localhost AND 192.168.x.x)
-  const host = req.headers.get("host") || "localhost:3000";
+  const host = req.headers.get("host") || "localhost:3000"; // req => contains request data (headers,body,etc)
   const proto = host.startsWith("localhost") ? "http" : "http"; // always http in dev
 
   try {
@@ -87,3 +88,13 @@ export async function POST(req: NextRequest, context: any) {
     });
   }
 }
+
+// Summary
+//
+// This API route does everything for your contact form:
+//
+// Reads form submission (JSON or form-data).
+// Validates environment configuration.
+// Uses Resend API to send email with the form content.
+// Handles both AJAX and normal form submissions.
+// Returns success/error responses in JSON or redirects.

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Link, useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation"; // useRouter is a nextjs router, used here to navigate to success page
 import { font1, font2 } from "../fonts";
-import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js";
+import { parsePhoneNumberFromString, CountryCode } from "libphonenumber-js"; // validates international phone numbers
 import {
   EmailIcon,
   PhoneIcon,
@@ -11,16 +11,17 @@ import {
 } from "@/app/components/icons";
 import ContactRow from "@/app/components/ContactRow";
 import { useTranslations } from "next-intl";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useFormik } from "formik"; // form handling
+import * as Yup from "yup"; // form vaidating
 
 export default function InquiryFormClient({ locale }: { locale: string }) {
   const t = useTranslations("Form");
   const router = useRouter();
 
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null); // formerror -> stores submission error messages
 
-  const defaultCountry: CountryCode = locale === "al" ? "XK" : locale === "de" ? "DE" : "GB";
+  const defaultCountry: CountryCode =
+    locale === "al" ? "XK" : locale === "de" ? "DE" : "GB";
 
   const formik = useFormik({
     initialValues: {
@@ -118,26 +119,6 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
             </span>
           </ContactRow>
 
-          <Link
-            href="/office"
-            className="flex items-start gap-6 group cursor-pointer hover:bg-white/5 p-4 -m-4 transition-all duration-300 rounded-sm"
-          >
-            <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center border border-white/20 text-white/60 group-hover:border-white/40 group-hover:text-white transition-colors">
-              <LocationIcon />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[9px] uppercase tracking-[0.2em] text-gray-400 mb-1 group-hover:text-gray-300 transition-colors">
-                {t("mainOffice")}
-              </span>
-              <span className="text-[13px] tracking-widest font-normal text-white group-hover:underline underline-offset-4 decoration-white/20">
-                {t("headquartersLocation")}
-              </span>
-            </div>
-            <div className="ml-auto self-center opacity-0 group-hover:opacity-100 transition-opacity translate-x-2 group-hover:translate-x-0">
-              <ArrowRightIcon />
-            </div>
-          </Link>
-
           <div className="w-16 h-[2px] bg-white opacity-40 mt-12"></div>
         </div>
       </div>
@@ -168,11 +149,15 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
                 {...formik.getFieldProps("fullName")}
                 placeholder={t("placeholderName")}
                 className={`bg-transparent border-b py-3 outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
-                  formik.touched.fullName && formik.errors.fullName ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+                  formik.touched.fullName && formik.errors.fullName
+                    ? "border-red-400 focus:border-red-400"
+                    : "border-white/30 focus:border-white"
                 }`}
               />
               {formik.touched.fullName && formik.errors.fullName && (
-                <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.fullName as string}</div>
+                <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">
+                  {formik.errors.fullName as string}
+                </div>
               )}
             </div>
             <div className="flex flex-col relative leading-none">
@@ -184,11 +169,15 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
                 {...formik.getFieldProps("phone")}
                 placeholder={t("placeholderPhone")}
                 className={`bg-transparent border-b py-3 outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
-                  formik.touched.phone && formik.errors.phone ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+                  formik.touched.phone && formik.errors.phone
+                    ? "border-red-400 focus:border-red-400"
+                    : "border-white/30 focus:border-white"
                 }`}
               />
               {formik.touched.phone && formik.errors.phone && (
-                <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.phone as string}</div>
+                <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">
+                  {formik.errors.phone as string}
+                </div>
               )}
             </div>
           </div>
@@ -202,11 +191,15 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
               {...formik.getFieldProps("email")}
               placeholder={t("placeholderEmail")}
               className={`bg-transparent border-b py-3 outline-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
-                formik.touched.email && formik.errors.email ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+                formik.touched.email && formik.errors.email
+                  ? "border-red-400 focus:border-red-400"
+                  : "border-white/30 focus:border-white"
               }`}
             />
             {formik.touched.email && formik.errors.email && (
-              <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.email as string}</div>
+              <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">
+                {formik.errors.email as string}
+              </div>
             )}
           </div>
 
@@ -219,11 +212,15 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
               {...formik.getFieldProps("message")}
               placeholder={t("placeholderMessage")}
               className={`bg-transparent border-b py-3 outline-none resize-none pointer-events-auto transition-all font-normal text-white placeholder:text-gray-600 block ${
-                formik.touched.message && formik.errors.message ? "border-red-400 focus:border-red-400" : "border-white/30 focus:border-white"
+                formik.touched.message && formik.errors.message
+                  ? "border-red-400 focus:border-red-400"
+                  : "border-white/30 focus:border-white"
               }`}
             />
             {formik.touched.message && formik.errors.message && (
-              <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">{formik.errors.message as string}</div>
+              <div className="absolute -bottom-5 left-0 text-red-400 text-[9px] uppercase tracking-widest whitespace-nowrap">
+                {formik.errors.message as string}
+              </div>
             )}
           </div>
 
@@ -234,7 +231,9 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
             <div className="flex flex-col items-center gap-6 self-start xl:self-auto w-full xl:w-auto">
               {formError && (
                 <p className="text-red-400 text-[10px] uppercase tracking-widest">
-                  {formError === "missing_config" ? "Config Error" : "Submission Failed"}
+                  {formError === "missing_config"
+                    ? "Config Error"
+                    : "Submission Failed"}
                 </p>
               )}
               <button
@@ -251,3 +250,14 @@ export default function InquiryFormClient({ locale }: { locale: string }) {
     </div>
   );
 }
+
+// Summary
+
+// This component:
+
+// Renders contact info on the left.
+// Renders interactive form on the right.
+// Uses Formik + Yup for validation.
+// Submits the form via fetch and handles success/error.
+// Fully responsive and internationalized using next-intl.
+// Has client-side behavior only, so it requires "use client".

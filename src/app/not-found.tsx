@@ -52,3 +52,5 @@ export default function GlobalNotFound() {
     </div>
   );
 }
+
+// this is just how the 404 page looks

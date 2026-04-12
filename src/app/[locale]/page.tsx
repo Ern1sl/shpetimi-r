@@ -9,6 +9,7 @@ import {
 } from "@/app/components/icons";
 
 export async function generateMetadata({
+  // Dynamically generates SEO metadata for the page, Makes your homepage localized in search engines depending on the language
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -23,6 +24,7 @@ export async function generateMetadata({
 }
 
 export default async function Home({
+  // Fetches the current locale from the route parameters, Loads translations for that locale (t("key") gives you the translated text)
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -80,12 +82,6 @@ export default async function Home({
             >
               {t("cta")}
             </Link>
-            <Link
-              href="/office"
-              className="md:hidden h-14 flex items-center justify-center border border-white text-white rounded-lg transition-all duration-300 tracking-wider font-medium bg-transparent hover:bg-white/10 whitespace-nowrap text-xs px-6 md:px-10 w-40 sm:w-48"
-            >
-              {t("office")}
-            </Link>
           </div>
 
           {/* SOCIAL LINKS */}
@@ -123,3 +119,10 @@ export default async function Home({
     </>
   );
 }
+
+// Key takeaways
+// Fully localized → all text comes from next-intl translation files.
+// Hero-first layout → big image + text overlay.
+// CTA + Social → encourages interaction immediately.
+// Custom fonts & responsive design → for professional branding.
+// Uses Next.js server-side functions (getTranslations) for SEO-friendly content.

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation"; // usePathname is a nextjs slient component hook that allows you to read the pathname portion of the current URL
 import { font4 } from "../[locale]/fonts";
 import { LayersIcon } from "./icons";
 import { useTranslations } from "next-intl";
@@ -13,12 +13,13 @@ export default function Navbar() {
   const isAbout = pathname.endsWith("/about");
   const isProjects = pathname.endsWith("/projects");
   const isContact = pathname.endsWith("/form");
-  const isOffice = pathname.endsWith("/office");
-  const isHome = !isAbout && !isProjects && !isContact && !isOffice;
+  const isHome = !isAbout && !isProjects && !isContact;
 
   // Small helper to uncheck the checkbox purely via DOM when a link is clicked
   const closeMenu = () => {
-    const checkbox = document.getElementById("mobile-menu-toggle") as HTMLInputElement;
+    const checkbox = document.getElementById(
+      "mobile-menu-toggle",
+    ) as HTMLInputElement;
     if (checkbox) checkbox.checked = false;
   };
 
@@ -44,23 +45,34 @@ export default function Navbar() {
 
         {/* NAVIGATION LINKS & Language Switcher (Desktop) */}
         <div className="hidden md:flex items-center space-x-12 mr-0">
-          <div className={`${font4.className} flex items-center space-x-8 lg:space-x-12`}>
+          <div
+            className={`${font4.className} flex items-center space-x-8 lg:space-x-12`}
+          >
             {!isHome && (
-              <Link href="/" className="text-[11px] tracking-widest text-white hover:text-white/70 transition-colors uppercase">
+              <Link
+                href="/"
+                className="text-[11px] tracking-widest text-white hover:text-white/70 transition-colors uppercase"
+              >
                 {t("home")}
               </Link>
             )}
-            <Link href="/about" className={`text-[11px] tracking-widest hover:text-white/70 transition-colors uppercase ${isAbout ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
+            <Link
+              href="/about"
+              className={`text-[11px] tracking-widest hover:text-white/70 transition-colors uppercase ${isAbout ? "text-white font-bold underline underline-offset-8" : "text-white"}`}
+            >
               {t("about")}
             </Link>
-            <Link href="/projects" className={`text-[11px] tracking-widest hover:text-white/70 transition-colors uppercase ${isProjects ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
+            <Link
+              href="/projects"
+              className={`text-[11px] tracking-widest hover:text-white/70 transition-colors uppercase ${isProjects ? "text-white font-bold underline underline-offset-8" : "text-white"}`}
+            >
               {t("projects")}
             </Link>
-            <Link href="/form" className={`text-[11px] tracking-widest hover:text-white/70 transition-colors uppercase ${isContact ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
+            <Link
+              href="/form"
+              className={`text-[11px] tracking-widest hover:text-white/70 transition-colors uppercase ${isContact ? "text-white font-bold underline underline-offset-8" : "text-white"}`}
+            >
               {t("contact")}
-            </Link>
-            <Link href="/office" className={`text-[11px] tracking-widest hover:text-white/70 transition-colors uppercase ${isOffice ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
-              {t("office")}
             </Link>
           </div>
           <div className="h-4 w-[1px] bg-white/20 mx-4"></div>
@@ -74,24 +86,39 @@ export default function Navbar() {
 
       {/* MOBILE DROPDOWN - Placed right below the navbar in normal flow */}
       <div className="md:hidden w-full bg-[rgb(54,68,79)] overflow-hidden shadow-xl transition-all duration-500 ease-in-out max-h-0 peer-checked:max-h-[450px] peer-checked:border-b peer-checked:border-white/5 pointer-events-none peer-checked:pointer-events-auto relative z-[1001]">
-        <div className={`${font4.className} flex flex-col items-center py-10 space-y-8`}>
+        <div
+          className={`${font4.className} flex flex-col items-center py-10 space-y-8`}
+        >
           <div className="flex flex-col items-center justify-center gap-6 px-4">
             {!isHome && (
-              <Link href="/" onClick={closeMenu} className="font-medium text-[11px] tracking-[0.2em] text-white hover:text-white/70 transition-colors uppercase whitespace-nowrap">
+              <Link
+                href="/"
+                onClick={closeMenu}
+                className="font-medium text-[11px] tracking-[0.2em] text-white hover:text-white/70 transition-colors uppercase whitespace-nowrap"
+              >
                 {t("home")}
               </Link>
             )}
-            <Link href="/about" onClick={closeMenu} className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${isAbout ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
+            <Link
+              href="/about"
+              onClick={closeMenu}
+              className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${isAbout ? "text-white font-bold underline underline-offset-8" : "text-white"}`}
+            >
               {t("about")}
             </Link>
-            <Link href="/projects" onClick={closeMenu} className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${isProjects ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
+            <Link
+              href="/projects"
+              onClick={closeMenu}
+              className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${isProjects ? "text-white font-bold underline underline-offset-8" : "text-white"}`}
+            >
               {t("projects")}
             </Link>
-            <Link href="/form" onClick={closeMenu} className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${isContact ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
+            <Link
+              href="/form"
+              onClick={closeMenu}
+              className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${isContact ? "text-white font-bold underline underline-offset-8" : "text-white"}`}
+            >
               {t("contact")}
-            </Link>
-            <Link href="/office" onClick={closeMenu} className={`font-medium text-[11px] tracking-[0.2em] hover:text-white/70 transition-colors uppercase whitespace-nowrap ${isOffice ? "text-white font-bold underline underline-offset-8" : "text-white"}`}>
-              {t("office")}
             </Link>
           </div>
           <div className="h-[1px] w-16 bg-white/10 my-2"></div>
@@ -112,7 +139,7 @@ export default function Navbar() {
       </div>
 
       {/* Backdrop */}
-      <div 
+      <div
         className="md:hidden fixed inset-0 z-[998] bg-black/20 backdrop-blur-[2px] opacity-0 pointer-events-none transition-opacity duration-500 peer-checked:opacity-100 peer-checked:pointer-events-auto"
         onClick={closeMenu}
       />

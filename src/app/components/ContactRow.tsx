@@ -35,3 +35,9 @@ export default function ContactRow({
     </div>
   );
 }
+
+//ContactRow is a flexible and reusable layout component for contact info:
+
+// Icon + label + content in one row
+// Customizable styling
+// Easy to reuse across a website

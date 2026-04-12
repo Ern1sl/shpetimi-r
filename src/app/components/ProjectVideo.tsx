@@ -3,12 +3,13 @@
 import { font2 } from "../[locale]/fonts";
 
 interface ProjectVideoProps {
+  // makes this component reusable for any project video
   src: string;
   id: number;
 }
 
 export default function ProjectVideo({ src, id }: ProjectVideoProps) {
-  // Robust looping fallback
+  // Robust looping fallback, normally loop works, but some browser can glitch. This ensures robust looping by restarting the video manually if it ends, it also catches errors to prevent app crashes.
   const handleEnded = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     const video = e.target as HTMLVideoElement;
     video.currentTime = 0;
@@ -46,3 +47,11 @@ export default function ProjectVideo({ src, id }: ProjectVideoProps) {
     </div>
   );
 }
+
+//ProjectVideo is a reusable, visually rich video card:
+
+// Autoplays and loops video
+// Handles browser quirks with handleEnded
+// Dark overlay ensures text readability
+// Hover effects zoom video and slide in info
+// Shows video ID as a stylish label using your custom font

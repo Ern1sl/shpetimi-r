@@ -1,25 +1,29 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // framer motion handles all the smooth animations like the splash screen
+import Image from "next/image"; // optimized nextjs images
+import { useTranslations } from "next-intl"; // gives you the translations: t("title")
 import { font2 } from "../[locale]/fonts";
 
-// Module-level variables to persist state aggressively even if Next.js fully remounts the layout.
-let initialLoad = true;
-let globalPrevLocale: string | undefined = undefined;
-let targetCloseTime = 0;
+// these persist across renders even if nextjs remounts the component
+let initialLoad = true; // know if this is the first visit
+let globalPrevLocale: string | undefined = undefined; // track last language
+let targetCloseTime = 0; // ensure splash screen timing is consistent
 
 export default function SplashScreen({ locale }: { locale?: string }) {
-  const t = useTranslations("Home");
-  const [isVisible, setIsVisible] = useState(true);
-  const [isShort, setIsShort] = useState(false);
+  const t = useTranslations("Home"); // this tells which translations to use
+  const [isVisible, setIsVisible] = useState(true); // is splash screen showing?
+  const [isShort, setIsShort] = useState(false); // whether to play the short version of the splash screen
 
   useEffect(() => {
+    // controls when the splash screen shows
     const now = Date.now();
     let duration = 0;
 
-    const isLocaleChange = !initialLoad && globalPrevLocale !== undefined && globalPrevLocale !== locale;
+    const isLocaleChange =
+      !initialLoad &&
+      globalPrevLocale !== undefined &&
+      globalPrevLocale !== locale; // checks if this is a first load or a language switcher splash screen
 
     if (initialLoad) {
       // First page load: show the full cinematic splash screen
@@ -27,8 +31,7 @@ export default function SplashScreen({ locale }: { locale?: string }) {
       globalPrevLocale = locale;
       duration = 1800;
       targetCloseTime = now + duration;
-    } 
-    else if (isLocaleChange) {
+    } else if (isLocaleChange) {
       // Language switch: show a quick shortened version
       globalPrevLocale = locale;
       duration = 800;
@@ -38,13 +41,14 @@ export default function SplashScreen({ locale }: { locale?: string }) {
     // If an animation is legally active (either just started, or interrupted by Strict Mode)
     if (targetCloseTime > now) {
       const remaining = targetCloseTime - now;
-      
+
       // If we jumped in mid-animation, figure out which mode we're supposed to be in
       setIsShort(targetCloseTime - now <= 1000);
       setIsVisible(true);
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden"; // prevents scrolling while splash screen is active
 
       const timer = setTimeout(() => {
+        // automatically hides splash screen after duration
         setIsVisible(false);
         document.body.style.overflow = "auto";
       }, remaining);
@@ -70,6 +74,9 @@ export default function SplashScreen({ locale }: { locale?: string }) {
 
   return (
     <AnimatePresence>
+      {" "}
+      {/* allows exit animations when hiding the splash screen */}
+      {/* this is the logo, scales in and fades in, uses motion.div for smooth animation */}
       {isVisible && (
         <motion.div
           key={`splash-${locale}`}

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { font1, font2 } from "../fonts";
 import {
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export default async function OfficePage({ params }: { params: Promise<{ locale: string }> }) {
+  notFound();
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Office" });
   const mapLink = "https://maps.app.goo.gl/vMAUf8tS7SRJka8W7";

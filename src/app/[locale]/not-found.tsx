@@ -9,8 +9,6 @@ export default function NotFound() {
     <div
       className={`min-h-screen w-full bg-[rgb(54,68,79)] text-white flex flex-col items-center justify-center p-8 text-center select-none pt-[70px] md:pt-24 ${font1.className}`}
     >
-
-
       <div className="relative mb-8">
         <h1
           className={`${font2.className} text-[120px] md:text-[180px] leading-none opacity-5`}
@@ -55,3 +53,5 @@ export default function NotFound() {
     </div>
   );
 }
+
+// just how the 404 page looks
